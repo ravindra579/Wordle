@@ -1,5 +1,4 @@
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import BarChartIcon from "@mui/icons-material/BarChart";
 import Settings from "../Settings";
 
 function NavBar(props) {
@@ -11,7 +10,7 @@ function NavBar(props) {
         }}
       />
       <h1 className="text-3xl font-bold tracking-wider">WORDLE</h1>
-      <Settings darkness={props.darkness} dark={props.dark}/>
+      <Settings darkness={props.darkness} dark={props.dark} level={props.level} score={props.score} lead={props.lead}/>
     </div>
   );
 }

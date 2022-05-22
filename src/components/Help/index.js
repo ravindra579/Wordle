@@ -21,42 +21,24 @@ function Help() {
       <p className="text-left text-sm sm:text-base py-5 font-regular opacity-75 mr-1">
         Guess the WORDLE in six tries.
         <br />
-        Each guess must be a valid five-letter word. Hit the enter button to
+        Each guess must be a five-letter word. Hit the enter button to
         submit.
         <br /> After each guess, the color of the tiles will change to show how
         close your guess was to the word.
       </p>
       <hr />
-      <h3 className="text-left font-bold py-5">Examples</h3>
+      <h3 className="text-left font-bold py-5">Example</h3>
       <div className="flex gap-1">
         <Box value="S" state="C" />
-        <Box value="W" />
-        <Box value="E" />
-        <Box value="A" />
-        <Box value="T" />
+        <Box value="L" />
+        <Box value="E" state="E"/>
+        <Box value="E" state="N"/>
+        <Box value="P" />
       </div>
       <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>S</b> is in the word and in the correct spot.
-      </p>
-      <div className="flex gap-1">
-        <Box value="N" />
-        <Box value="U" />
-        <Box value="M" state="E" />
-        <Box value="B" />
-        <Box value="S" />
-      </div>
-      <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>M</b> is in the word and in the correct spot.
-      </p>
-      <div className="flex gap-1">
-        <Box value="F" />
-        <Box value="L" state="N" />
-        <Box value="A" />
-        <Box value="T" />
-        <Box value="S" />
-      </div>
-      <p className="text-left text-sm sm:text-base py-2 opacity-75">
-        The letter <b>N</b> is in the word and in the correct spot.
+        The letter <b>S</b> is in the word and in correct spot.<br/>
+        The letter <b>E</b> is in the word and incorrect spot.<br/>
+        The letter <b>N</b> is not in the word.
       </p>
     </>
   );

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Box from "../Box";
 import words from "../../words";
-
-const correct = "CHANT";
+import withAuthorization from "../../authentication/withAuthorization";
+import {doupdate} from "../../firebase/db"
 let defaulBoard = [];
 let defaultLetters = [];
 
@@ -26,8 +26,12 @@ function Board(props) {
   const [win, setWin] = useState(false);
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
-
+  let correct = props.word;
+  useEffect(()=>{
+    console.log(props.gamelevel)
+  },[])
   useEffect(() => {
+    console.log(props.word)
     if (win || lost) {
       console.log("Game ended!");
     } else {
@@ -40,6 +44,7 @@ function Board(props) {
           });
         } else {
           setBoard((prevBoard) => {
+            console.log(prevBoard)
             if (col < 5) {
               if (props.letter !== "ENTER") {
                 prevBoard[row][col][0] = props.letter;
@@ -57,43 +62,52 @@ function Board(props) {
                 for (let i = 0; i < 5; i++) {
                   word += prevBoard[row][i][0];
                 }
-                if (words.includes(word.toLowerCase())) {
-                  for (let i = 0; i < 5; i++) {
-                    if (correct[i] === prevBoard[row][i][0]) {
-                      prevBoard[row][i][1] = "C";
-                      correctLetters++;
-                    } else if (correct.includes(prevBoard[row][i][0]))
-                      prevBoard[row][i][1] = "E";
-                    else prevBoard[row][i][1] = "N";
-                    setRow(row + 1);
-                    if (row === 5) {
-                      setLost(true);
-                      setTimeout(() => {
-                        setMessage(`It was ${correct}`);
-                      }, 750);
-                    }
-
-                    setCol(0);
-                    setLetters((prev) => {
-                      prev[board[row][i][0]] = board[row][i][1];
-                      return prev;
-                    });
-                  }
-                  setChanged(!changed);
-
-                  if (correctLetters === 5) {
-                    setWin(true);
+                for (let i = 0; i < 5; i++) {
+                  if (correct[i] === prevBoard[row][i][0]) {
+                    prevBoard[row][i][1] = "C";
+                    correctLetters++;
+                  } else if (correct.includes(prevBoard[row][i][0]))
+                    prevBoard[row][i][1] = "E";
+                  else prevBoard[row][i][1] = "N";
+                  setRow(row + 1);
+                  if (row === 5) {
+                    setLost(true);
                     setTimeout(() => {
-                      setMessage("You WIN");
+                      if(props.lev==0){
+                      setMessage(`The correct word is ${correct}`);
+                      doupdate(props.uid,props.gamelevel,props.coins,props.won,props.lost+1);
+                      }
+                      else if(props.lev==1){
+                      setMessage(`You Had Lost 2 coin. The correct word is ${correct}`);
+                      doupdate(props.uid,props.gamelevel,props.coins-2,props.won,props.lost+1);
+                      }
+                      else if(props.lev==2){
+                      setMessage(`You Had Lost 5 coin. The correct word is ${correct}`);
+                      doupdate(props.uid,props.gamelevel,props.coins-5,props.won,props.lost+1);
+                      }
+                      else if(props.lev==3){
+                      setMessage(`You Had Lost 10 coin. The correct word is ${correct}`);
+                      doupdate(props.uid,props.gamelevel,props.coins-10,props.won,props.lost+1);
+                      }
                     }, 750);
+
                   }
-                  return prevBoard;
-                } else {
-                  props.error("Word not in dictionary");
-                  setTimeout(() => {
-                    props.error("");
-                  }, 1000);
+                  setCol(0);
+                  setLetters((prev) => {
+                    prev[board[row][i][0]] = board[row][i][1];
+                    return prev;
+                  });
                 }
+                setChanged(!changed);
+                if (correctLetters === 5) {
+                  setWin(true);
+                  doupdate(props.uid,props.gamelevel,props.coins+(props.lev+1)*10,props.won+1,props.lost);
+                  setTimeout(() => {
+                    setMessage(`You Had Won ${(props.lev+1)*10}`);
+                  }, 750);
+                  
+                }
+                return prevBoard;
               }
             }
             return prevBoard;
@@ -106,7 +120,6 @@ function Board(props) {
   useEffect(() => {
     props.letters(letters);
   }, [changed]);
-
   return (
     <div className="px-10 py-5 grid gap-y-1 items-center w-100 justify-center">
       {board.map((row, key) => {
@@ -124,5 +137,4 @@ function Board(props) {
     </div>
   );
 }
-
 export default Board;
