@@ -48,9 +48,13 @@ function Game(props) {
     }
   },[lev])
   return (
-    <div  className={"app dark:bg-zinc-800"}>
+    <div className="app">
+    <div  className={"dark:bg-zinc-800"}>
+      <div className="app1">
       {changed && (<Start lev={setlev} lev1={lev} word={word} level={level} darkness={darkHandler} />)}
       {!changed && (<Start lev={setlev} lev1={lev} word={word} level={level} darkness={darkHandler} />)}
+    </div>
+    </div>
     </div>
   );
 }
