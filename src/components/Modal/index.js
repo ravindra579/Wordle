@@ -17,7 +17,7 @@ function Modal(props) {
             }}
           />
         </div>
-        <div className="modal overscroll-contain overflow-y-scroll sm:px-7">
+        <div className="overscroll-contain overflow-y-scroll sm:px-7">
           {props.children}
         </div>
       </div>
