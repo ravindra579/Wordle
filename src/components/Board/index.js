@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import Box from "../Box";
-import words from "../../words";
-import withAuthorization from "../../authentication/withAuthorization";
 import {doupdate} from "../../firebase/db"
 let defaulBoard = [];
 let defaultLetters = [];
@@ -27,11 +25,8 @@ function Board(props) {
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
   let correct = props.word;
-  useEffect(()=>{
-    console.log(props.gamelevel)
-  },[])
   useEffect(() => {
-    console.log(props.word)
+    if(props.def){
     if (win || lost) {
       console.log("Game ended!");
     } else {
@@ -44,7 +39,6 @@ function Board(props) {
           });
         } else {
           setBoard((prevBoard) => {
-            console.log(prevBoard)
             if (col < 5) {
               if (props.letter !== "ENTER") {
                 prevBoard[row][col][0] = props.letter;
@@ -58,10 +52,6 @@ function Board(props) {
             } else {
               if (props.letter === "ENTER") {
                 let correctLetters = 0;
-                let word = "";
-                for (let i = 0; i < 5; i++) {
-                  word += prevBoard[row][i][0];
-                }
                 for (let i = 0; i < 5; i++) {
                   if (correct[i] === prevBoard[row][i][0]) {
                     prevBoard[row][i][1] = "C";
@@ -73,19 +63,19 @@ function Board(props) {
                   if (row === 5) {
                     setLost(true);
                     setTimeout(() => {
-                      if(props.lev==0){
+                      if(props.lev===0){
                       setMessage(`The correct word is ${correct}`);
                       doupdate(props.uid,props.gamelevel,props.coins,props.won,props.lost+1);
                       }
-                      else if(props.lev==1){
+                      else if(props.lev===1){
                       setMessage(`You Had Lost 2 coin. The correct word is ${correct}`);
                       doupdate(props.uid,props.gamelevel,props.coins-2,props.won,props.lost+1);
                       }
-                      else if(props.lev==2){
+                      else if(props.lev===2){
                       setMessage(`You Had Lost 5 coin. The correct word is ${correct}`);
                       doupdate(props.uid,props.gamelevel,props.coins-5,props.won,props.lost+1);
                       }
-                      else if(props.lev==3){
+                      else if(props.lev===3){
                       setMessage(`You Had Lost 10 coin. The correct word is ${correct}`);
                       doupdate(props.uid,props.gamelevel,props.coins-10,props.won,props.lost+1);
                       }
@@ -115,6 +105,16 @@ function Board(props) {
         }
       }
     }
+  }else{
+    let x=[]
+    for (let i = 0; i < 6; i++) {
+      x.push([]);
+      for (let j = 0; j < 5; j++) {
+        x[i].push(["", ""]);
+      }
+    }
+    setBoard(x);
+  }
   }, [props.clicks]);
 
   useEffect(() => {

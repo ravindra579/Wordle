@@ -11,28 +11,31 @@ function Game(props) {
   const [changed, setChanged] = useState(false);
   const [word,setword]=useState();
   const [level,setlevel]=useState("easy")
+  let x = [];
+  "abcdefjhijklmnopqrstuvwxyz".split("").forEach((i) => {x[i] = "";});
+  const [letters, setLetters] = useState(x);
   useEffect(()=>{
     const rand=Math.floor(Math.random()*(11));
-    if(lev==1 || lev==2 || lev==3 || lev==0){
-      if(lev==0) {
+    if(lev===1 || lev===2 || lev===3 || lev===0){
+      if(lev===0) {
         setword(easy[rand].toUpperCase())
         setlevel("easy")
       }
-      else if(lev==1) {
+      else if(lev===1) {
         setword(medium[rand].toUpperCase())
         setlevel("medium")
       }
-      else if(lev==2) {
+      else if(lev===2) {
         setword(hard[rand].toUpperCase())
         setlevel("hard")
       }
-      else if(lev==3){
+      else if(lev===3){
         const x=Math.floor(Math.random()*3);
-        if(x==0) {
+        if(x===0) {
           setword(easy[rand].toUpperCase())
           setlevel("easy")
         }
-        else if(x==1) {
+        else if(x===1) {
           setword(medium[rand].toUpperCase())
           setlevel("medium")
         }
@@ -41,18 +44,15 @@ function Game(props) {
           setlevel("hard")
         } 
       }
-      console.log(word)
-      console.log(rand)
       setChanged(!changed);
-      console.log(lev)
     }
   },[lev])
   return (
     <div className="app">
     <div  className={"dark:bg-zinc-800"}>
       <div className="app1">
-      {changed && (<Start lev={setlev} lev1={lev} word={word} level={level} darkness={darkHandler} />)}
-      {!changed && (<Start lev={setlev} lev1={lev} word={word} level={level} darkness={darkHandler} />)}
+      {changed && (<Start lev={setlev} lev1={lev} word={word} level={level} darkness={darkHandler} let={letters} setlet={setLetters}/>)}
+      {!changed && (<Start lev={setlev} lev1={lev} word={word} level={level} darkness={darkHandler} let={letters} setlet={setLetters}/>)}
     </div>
     </div>
     </div>

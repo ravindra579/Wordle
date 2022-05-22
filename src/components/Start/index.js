@@ -29,9 +29,18 @@ function Start(props) {
   const [showleaderboard,setshowleaderboard]=useState(false)
   const [alldata,setalldata]=useState({})
   const [data,setdata]=useState();
+  const [def,setdef]=useState(false)
+
   useEffect(() => {
     props.darkness(dark);
   }, [dark]);
+
+  useEffect(()=>{
+    if(props.lev1===0 || props.lev1===1 || props.lev1===2 || props.lev1===3){
+    setdef(!def)
+    }
+  },[props.lev1])
+  
   var user = auth.currentUser;
   useEffect(() => {
     if (user) {
@@ -42,12 +51,12 @@ function Start(props) {
         if (snapshot.val() != null) {
           setdata(snapshot.val())
           setcoins(snapshot.val().coins);
-          if(x=="easy"){
+          if(x==="easy"){
             if(snapshot.val().easy){
               setwon(snapshot.val().easy.won)
               setlost(snapshot.val().easy.lost)
             }
-          }if(x=="medium"){
+          }if(x==="medium"){
             if(snapshot.val().medium){
               setwon(snapshot.val().medium.won)
               setlost(snapshot.val().medium.lost)
@@ -68,10 +77,10 @@ function Start(props) {
     }
   }, [user]);
   const onClickDown = (event) => {
-    if (event.key == "Enter") {
+    if (event.key === "Enter") {
       setLetter("ENTER");
       setClicked(clicked + 1);
-    } else if (event.key == "Backspace") {
+    } else if (event.key === "Backspace") {
       setLetter("DEL");
       setClicked(clicked + 1);
     } else if ("abcdefghijklmnopqrstuvwxyz".includes(event.key.toLowerCase())) {
@@ -125,6 +134,7 @@ function Start(props) {
         <hr />
         <Board
           letter={letter}
+          def={def}
           clicks={clicked}
           lev={lev}
           uid={user.uid}
@@ -136,7 +146,7 @@ function Start(props) {
           error={setError}
           gamelevel={props.level}
         />
-        <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} />
+        <KeyBoard keyHandler={keyHandler} letters={letters} changed={changed} def={def}/>
         </div>
     </>
   );

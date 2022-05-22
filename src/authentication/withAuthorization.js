@@ -9,14 +9,11 @@ const withAuthorization = authCondition => Component => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
-        console.log(authUser)
         if (firebaseAuth.currentUser && firebaseAuth.currentUser.uid) {
-          console.log("problem1")
           //if the authorization fails, redirects to sign in page
             this.props.history.push(routes.GAME);
         }else{
           this.props.history.push(routes.SIGN_IN);
-          console.log("problem")
         }
       });
     }

@@ -33,8 +33,6 @@ export const hard=[
   "beats",
   "began",
   "bench",
-]
-const words = [
   "caber",
   "cabin",
   "cable",
@@ -2662,5 +2660,4 @@ const words = [
   "zonal",
   "zoned",
   "zones",
-];
-export default words;
+]

@@ -1,6 +1,6 @@
 //this is going to store Firebase realtime database API code
 import { db } from "./firebase";
-import { ref,update, remove } from "firebase/database";
+import { ref,update} from "firebase/database";
 
 //##########3 user API
 

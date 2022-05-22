@@ -12,8 +12,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("")
 
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
 
   useEffect(() => {
     if (firebaseAuth.currentUser && firebaseAuth.currentUser.uid) {
@@ -34,7 +33,7 @@ const Signup = () => {
   // ** Login Functions
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log("submitted")
+    if(password===confirmPass){
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(() => {
         history.push(redirectPath);
@@ -43,6 +42,9 @@ const Signup = () => {
       .catch((err) => {
         console.log("error")
       });
+    }else{
+      setErrorMessage("Password Not matches")
+    }
   };
 
   return (

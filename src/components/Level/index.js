@@ -1,5 +1,5 @@
 import "../../authentication/auth/index.css"
-import { useState, useEffect } from "react";
+import { useState} from "react";
 export default function Level(props) {
   const [lev,setlev]=useState(props.lev);
   const handlechange=(e)=>{
@@ -42,12 +42,12 @@ return(  <>
     <div>Choose the level you want to play</div>
     <div className="width50100 text-xl">
     <div className="flex" style={{marginBottom:"10px",marginTop:"10px"}}>
-      <div className={`cursor  width50 border cursor margin5 ${lev==0?"selected":""}`} onClick={()=>{handlechange(0)}}>Easy</div>
-      <div className={`cursor  width50 border cursor margin5 ${lev==1?"selected":""}`}  onClick={()=>{handlechange(1)}}>Intermediate</div>
+      <div className={`cursor  width50 border cursor margin5 ${lev===0?"selected":""}`} onClick={()=>{handlechange(0)}}>Easy</div>
+      <div className={`cursor  width50 border cursor margin5 ${lev===1?"selected":""}`}  onClick={()=>{handlechange(1)}}>Intermediate</div>
     </div>
     <div className="flex">
-      <div className={`cursor  width50 border cursor margin5 ${lev==2?"selected":""}`} onClick={()=>{handlechange(2)}}>Hard</div>
-      <div className={`cursor  width50 border cursor margin5 ${lev==3?"selected":""}`} onClick={()=>{handlechange(3)}}>Random</div>
+      <div className={`cursor  width50 border cursor margin5 ${lev===2?"selected":""}`} onClick={()=>{handlechange(2)}}>Hard</div>
+      <div className={`cursor  width50 border cursor margin5 ${lev===3?"selected":""}`} onClick={()=>{handlechange(3)}}>Random</div>
     </div>
     <div>
       <div className="cursor margin5 width50 border cursor margin25 selected" onClick={()=>{
