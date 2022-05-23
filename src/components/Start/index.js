@@ -130,7 +130,7 @@ function Start(props) {
       )}
       {error && <Error>{error}</Error>}
       <div className={styles.game}>
-        <NavBar help={setHelp} darkness={setDark} dark={dark} level={setlevel} score={setshowscore} lead={setshowleaderboard}/>
+        <NavBar help={setHelp} darkness={setDark} dark={dark} level={setlevel} score={setshowscore} lead={setshowleaderboard} lev={props.lev}/>
         <hr />
         <Board
           letter={letter}

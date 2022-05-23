@@ -15,6 +15,7 @@ function Game(props) {
   "abcdefjhijklmnopqrstuvwxyz".split("").forEach((i) => {x[i] = "";});
   const [letters, setLetters] = useState(x);
   useEffect(()=>{
+    if(lev===-1){setlev(0)}
     const rand=Math.floor(Math.random()*(11));
     if(lev===1 || lev===2 || lev===3 || lev===0){
       if(lev===0) {

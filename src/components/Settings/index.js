@@ -50,6 +50,11 @@ function Settings(props) {
           props.lead(true)
           setAnchorEl(null)
           }} style={{textAlign:"center"}}>Leader Board</div>
+            <hr/>
+        <div className="pl-3.5 pr-3.5 text-slate-600 font2 cursor margin5" onClick={()=>{
+          props.lev(-1)
+          setAnchorEl(null)
+          }} style={{textAlign:"center"}}>New Game</div>
       </Menu>
     </div>
   );
